@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('contant')
+@section('content')
 <div class="form-body">
     <div class="row">
         <div class="form-holder">
@@ -36,7 +36,7 @@
 
 
               
-                       <a class="mb-2" href="{{ route('login.form') }}">Already Register</a>
+                      <span>Already have an Account? <a class="mb-2" href="{{ route('login.form') }}">Login</a></span>
                         <div class="col-md-3 float-end">
                             <button id="submit" type="submit" class="btn btn-primary">Register</button>
                         </div>

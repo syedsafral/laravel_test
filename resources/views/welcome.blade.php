@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('contant')
+@section('content')
 <div class="form-body">
     <div class="row">
         <div class="form-holder">
@@ -8,6 +8,11 @@
                     @if(session('erorr'))
                         <div class="alert alert-danger">
                             {{session('erorr')}}
+                        </div>
+                    @endif
+                    @if(session('message'))
+                        <div class="alert alert-danger">
+                            {{session('message')}}
                         </div>
                     @endif
                     <h3 class="text-center">Register Today</h3>
@@ -24,8 +29,8 @@
                            
                        </div>
                        
-                       <a class="mb-2" href="{{ route('register.form') }}">Create a new Register</a>&nbsp; &nbsp;
-                       <a class="mb-2" href="">Forgot Password</a>
+                       <span>Not an Account? <a class="mb-2" href="{{ route('register.form') }}">Register</a>&nbsp; &nbsp;</span>
+                       <a class="mb-2" href="{{ route('forgot.password') }}">Forgot Password</a>
                        <div class="col-md-3 ">
                            <button id="submit" type="submit" class="btn btn-primary">Loin In</button>
                         </div>
