@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="form-body">
+<div class="form-body mx-auto">
     <div class="row">
         <div class="form-holder">
             <div class="form-content">

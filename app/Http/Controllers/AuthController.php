@@ -47,7 +47,6 @@ class AuthController extends Controller
         $user = User::create($validatedData);
 
         return redirect('/')->with(['message' => 'User registered successfully']);
-        // return response()->json(['message' => 'User registered successfully'], 201);
 
     }
     public function login(Request $request)
@@ -62,7 +61,6 @@ class AuthController extends Controller
             return redirect('/dashboard');
         } else {
             return redirect()->back()->with('erorr', 'Invalid Credentials');
-            // return response()->json(['message' => 'Invalid credentials'], 401);
         }
     }
 
@@ -73,7 +71,6 @@ class AuthController extends Controller
 
     public function sendMail(Request $request)
     {
-        // return $request;
         $email_exist = User::where('email', $request->email)->first();
         if($email_exist){
 
@@ -89,8 +86,7 @@ class AuthController extends Controller
             $msg->to($request->email, 'Fprgot Password');
             $msg->subject('Exsample forgot password');
         });
-        // return $request;
-       return redirect('/')->with('message', );
+       return redirect('/')->with('message', 'Send Mail Successfully');
     }
     else{
         return redirect()->back()->with('erorr', 'Invailid Email');
@@ -117,14 +113,14 @@ class AuthController extends Controller
         ]
     );
 
-        // return $request->token;
+        
         
        $old_user = User::where('remember_token', $request->token)->first();
        if ($old_user) {
           if ($credentials){
               $old_user->password = hash::make($request->password);
               $old_user->save();
-              return redirect('/login')->with('message', 'Password Reset Succsesfully');
+              return redirect('/login')->with('message', 'Password Reset Succsessfully');
 
           }
           else{
@@ -136,6 +132,12 @@ class AuthController extends Controller
        else{
         return redirect()->back()->with('erorr', 'Something went wrong');
        }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/login');
     }
 
 }

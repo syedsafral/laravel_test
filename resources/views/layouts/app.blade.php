@@ -6,11 +6,21 @@
 
         <title>Laravel</title>
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <script src="https://cdn.tailwindcss.com"></script>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <script
+  src="https://code.jquery.com/jquery-3.7.0.js"
+  integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+  crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+  
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+        
+        
 
         <!-- Styles -->
         <style>
@@ -24,42 +34,120 @@
             
         </style>
     </head>
-    <body class="antialiased">
+    <body class="antialiased" id="page-top">
+        <div id="wrapper">
+
      @guest
      @yield('content')
 
      @else
-      @include('inc.header')
+     
      @include('inc.sidebaar')
+     <div id="content-wrapper" class="d-flex flex-column">
+         <div id="content">
+            @include('inc.header')
+      
 
      @yield('content')
+    </div>
 
-     {{-- @include('inc.footer') --}}
-         
-     @endguest
-     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
-  <script>
-    const setup = () => {
-      const getTheme = () => {
-        if (window.localStorage.getItem('dark')) {
-          return JSON.parse(window.localStorage.getItem('dark'))
+     
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    
+
+    @endguest
+
+    
+
+    <script>
+       $(function() {
+            $('#productTable').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+                "responsive": true,
+            });
+        });
+    </script>
+    <script>
+        function validateDecimalInput(event) {
+        const input = event.target;
+        const regex = /^\d*\.?\d*$/;
+        const isValid = regex.test(input.value);
+    
+        if (!isValid) {
+            input.value = input.value.replace(/[^\d.]/g, '');
         }
-        return !!window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-      }
-
-      const setTheme = (value) => {
-        window.localStorage.setItem('dark', value)
-      }
-
-      return {
-        loading: true,
-        isDark: getTheme(),
-        toggleTheme() {
-          this.isDark = !this.isDark
-          setTheme(this.isDark)
-        },
-      }
     }
-  </script>
-    </body>
+      </script>
+      <script>
+        $(function() {
+                $('#add_product').validate({
+                    rules: {
+                        name: {
+                            required: true
+                        },
+                        category_id: {
+                            required: true,
+                            
+                        },
+                        price: {
+                            required: true,
+                        },
+                        quantity: {
+                            required: true,
+                        },
+                        
+                    },
+                    messages: {
+                        name: {
+                            required: "Please Enter Product Name"
+                        },
+                        category_id: {
+                            required: "Please Selact Category",
+                        },
+                        price: {
+                            required: "Please enter Product Price",
+                        },
+                        quantity: {
+                            required: "Please enter Product Quantity",
+                        },
+                        
+                    },
+                    errorElement: 'span',
+                    errorPlacement: function(error, element) {
+                        error.addClass('invalid-feedback');
+                        element.closest('.err_msg').append(error);
+                    },
+                    highlight: function(element, errorClass, validClass) {
+                        $(element).addClass('is-invalid').removeClass('is-valid');
+                    },
+                    unhighlight: function(element, errorClass, validClass) {
+                        $(element).removeClass('is-invalid').addClass('is-valid');
+                    }
+                });
+            });
+    </script>
+    <script>
+        $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
+      </script>
+
+</body>
+
 </html>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="form-body">
+<div class="form-body mx-auto">
     <div class="row">
         <div class="form-holder">
             <div class="form-content">
@@ -32,14 +32,11 @@
                                <div class="error text-danger ">{{ $errors->first('password') }}</div>
                            @endif
                        </div>
-
-
-
-              
-                      <span>Already have an Account? <a class="mb-2" href="{{ route('login.form') }}">Login</a></span>
-                        <div class="col-md-3 float-end">
-                            <button id="submit" type="submit" class="btn btn-primary">Register</button>
+                       
+                       <div class="col-md-3 my-4">
+                           <button id="submit" type="submit" class="btn btn-primary">Register</button>
                         </div>
+                        <span class="px-auto">Already have an Account? <a class="mb-2" href="{{ route('login.form') }}">Login</a></span>
                     </form>
                 </div>
             </div>
